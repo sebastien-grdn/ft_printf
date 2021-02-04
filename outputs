@@ -1,0 +1,10 @@
+printf("int %0.d\n", x);
+int 154
+printf("int %0.8d\n", x);
+int 00000154
+printf("int %-.8d\n", x);
+int 00000154
+printf("int %-.*d\n", 8, x);
+int 00000154
+printf("int %.*d\n", 8, x);
+int 00000154
