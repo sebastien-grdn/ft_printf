@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/02/04 14:04:41 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/03 15:01:17 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,50 @@ void	print_decimal(va_list args, t_syntax *syntax)
 	return ;
 }
 
+void	to_upper_string(char *string)
+{
+	int i;
+
+	i = -1;
+	while (string[++i])
+		string[i] = ft_toupper(string[i]);
+	return ;
+}
+
+void	print_pointer(va_list args, t_syntax *syntax)
+{
+	write(1, "[TODO]", 6);
+	return ;
+}
+
+void	print_hexa(va_list args, char flag)
+{
+	int		x;
+	int		y;
+	int		hexa_length;
+	char *	hexa;
+
+	x = va_arg(args, int);
+	y = x;
+	hexa_length = 1;
+	while (y/=16)
+		hexa_length += 1;
+	hexa = (char *)malloc(sizeof(char) * hexa_length + 1);
+	hexa_length = 0;
+	while (x >= 16)
+	{
+		hexa[hexa_length++] = ft_toupper("0123456789abcdef"[x / 16]);
+		x %= 16;
+	}
+	hexa[hexa_length] = "0123456789abcdef"[x];
+	hexa[hexa_length += 1] = '\0';
+	if (flag == 'X')
+		to_upper_string(hexa);
+	write(1, hexa, hexa_length + 1);
+	free(hexa);
+	return ;
+}
+
 void	print_arg(const char *format, int *i, va_list args, t_syntax *syntax)
 {
 	if (format[*i] == 's')
@@ -60,6 +104,10 @@ void	print_arg(const char *format, int *i, va_list args, t_syntax *syntax)
 		print_decimal(args, syntax);
 	else if (format[*i] == 'c')
 		print_char(args);
+	else if (format[*i] == 'p')
+		print_pointer(args, syntax);
+	else if (ft_strchr("xX", format[*i]))
+		print_hexa(args, format[*i]);
 	*i = *i + 1;
 	return ;
 }
@@ -168,5 +216,13 @@ int main(void)
 	printf("-----------------\n");
 	printf("int %.*d\n", 8, x);
 	ft_printf("int %.*d\n", 8, x);
+
+	printf("P\n");
+	printf("pointer %p\n", &c);
+	ft_printf("pointer %p\n", &c);
+
+	printf("H\n");
+	printf("hexa %x\n", x);
+	ft_printf("hexa %x\n", x);
 	return (0);
 }
