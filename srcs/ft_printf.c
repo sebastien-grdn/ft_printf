@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/03 15:01:17 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/04 19:16:53 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,27 @@ void	to_upper_string(char *string)
 	return ;
 }
 
-void	print_pointer(va_list args, t_syntax *syntax)
+void	print_pointer(va_list args)
 {
-	write(1, "[TODO]", 6);
+	unsigned long x;
+	int			hexa_length;
+	char *	hexa;
+	unsigned long			y;
+	x = (unsigned long) va_arg(args, void*);
+	y = x;
+	hexa_length = 1;
+	while (y/=16)
+		hexa_length += 1;
+	hexa = (char *)malloc(sizeof(char) * hexa_length + 1);
+	hexa[hexa_length--] = '\0';
+	while (x >= 16)
+	{
+		hexa[hexa_length--] = "0123456789abcdef"[x % 16];
+		x /= 16;
+	}
+	hexa[hexa_length] = "0123456789abcdef"[x];
+	write(1, "0x", 2);
+	write(1, hexa, ft_strlen(hexa));
 	return ;
 }
 
@@ -81,17 +99,16 @@ void	print_hexa(va_list args, char flag)
 	while (y/=16)
 		hexa_length += 1;
 	hexa = (char *)malloc(sizeof(char) * hexa_length + 1);
-	hexa_length = 0;
+	hexa[hexa_length--] = '\0';
 	while (x >= 16)
 	{
-		hexa[hexa_length++] = ft_toupper("0123456789abcdef"[x / 16]);
-		x %= 16;
+		hexa[hexa_length--] = "0123456789abcdef"[x % 16];
+		x /= 16;
 	}
 	hexa[hexa_length] = "0123456789abcdef"[x];
-	hexa[hexa_length += 1] = '\0';
 	if (flag == 'X')
 		to_upper_string(hexa);
-	write(1, hexa, hexa_length + 1);
+	write(1, hexa, ft_strlen(hexa));
 	free(hexa);
 	return ;
 }
@@ -105,7 +122,7 @@ void	print_arg(const char *format, int *i, va_list args, t_syntax *syntax)
 	else if (format[*i] == 'c')
 		print_char(args);
 	else if (format[*i] == 'p')
-		print_pointer(args, syntax);
+		print_pointer(args);
 	else if (ft_strchr("xX", format[*i]))
 		print_hexa(args, format[*i]);
 	*i = *i + 1;
@@ -184,7 +201,7 @@ int ft_printf(const char *format, ...)
 int main(void)
 {
 	char *string = "salut yolo";
-	int	x = 154;
+	int	x = 214748364;
 	char c = 'x';
 
 	printf("C\n");
@@ -222,7 +239,7 @@ int main(void)
 	ft_printf("pointer %p\n", &c);
 
 	printf("H\n");
-	printf("hexa %x\n", x);
-	ft_printf("hexa %x\n", x);
+	printf("hexa %X\n", x);
+	ft_printf("hexa %X\n", x);
 	return (0);
 }
