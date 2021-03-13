@@ -6,7 +6,7 @@
 #    By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 21:28:31 by sg9031            #+#    #+#              #
-#    Updated: 2021/02/03 22:06:01 by sg9031           ###   ########.fr        #
+#    Updated: 2021/03/04 19:24:45 by sg9031           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ PRINTF_OBJS = ${addprefix ${PRINTF_DIR}/, ${PRINTF_SRCS:.c=.o}}
 
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
-NAME		= printf.a
+NAME		= libftprintf.a
 RM			= rm -f
 
 .c.o:
