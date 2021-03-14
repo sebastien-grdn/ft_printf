@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/13 16:38:59 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/14 18:44:22 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ int	print_string(va_list args, t_syntax *syntax)
 		len++;
 	if (syntax->precision_set && len > syntax->precision)
 		len = syntax->precision;
-	// printf("\nLEN : %d\n", len);
 	i = len;
 	while (syntax->width > i && !syntax->justify_left)
 	{
@@ -139,19 +138,17 @@ int	print_unsigned(va_list args, t_syntax *syntax)
 	padding = ' ';
 	if (syntax->zeros && !syntax->precision_set)
 		padding = '0';
-	// printf("\nLEN 1 : %d\n", len);
 	lol += padding_sign_precision(syntax, false, &len, padding);
 	if (!(syntax->precision_set && syntax->precision == 0))
 		write(1, int_string, ft_strlen(int_string));
 	else
 		len = 0;
-	// printf("\nLEN 2 : %d\n", len);
-	// printf("\nWIDTH : %d\n", syntax->width);
 	while (len < syntax->width--)
 	{
 		write(1, &padding, 1);
 		lol++;
 	}
+	free(int_string);
 	return (len + lol);
 }
 
@@ -206,6 +203,7 @@ int	print_decimal(va_list args, t_syntax *syntax)
 		write(1, " ", 1);
 		lol++;
 	}
+	free(int_string);
 	return (len + lol);
 }
 
@@ -254,21 +252,31 @@ int	print_pointer(va_list args, t_syntax *syntax)
 	if (syntax->zeros && !syntax->precision_set)
 		padding = '0';
 	lol = precision_length;
-	while (!syntax->justify_left && hexa_length + 2 < syntax->width)
+	if (padding == '0')
+		write(1, "0x", 2);
+	while (!syntax->justify_left && hexa_length + precision_length + 2 < syntax->width)
 	{
 		write(1, &padding, 1);
 		lol++;
 		syntax->width--;
 	}
-	write(1, "0x", 2);
+	if (padding == ' ')
+		write(1, "0x", 2);
+	while (!syntax->justify_left && hexa_length + precision_length + 2 < syntax->width)
+	{
+		write(1, &padding, 1);
+		lol++;
+		syntax->width--;
+	}
 	while (precision_length--)
 		write(1, "0", 1);
 	write(1, hexa, hexa_length);
 	while (lol + hexa_length + 2 < syntax->width)
 	{
-		write(1, &padding, 1);
+		write(1, " ", 1);
 		lol++;
 	}
+	free(hexa);
 	return (2 + hexa_length + lol);
 }
 
@@ -311,7 +319,6 @@ int	print_hexa(va_list args, char flag, t_syntax *syntax)
 	lol = precision_length;
 	while (!syntax->justify_left && hexa_length + precision_length < syntax->width)
 	{
-	//	printf("\nWIDTH %d\nLENGTH %d\n", syntax->width, hexa_length);
 		write(1, &padding, 1);
 		lol++;
 		syntax->width--;
@@ -319,16 +326,12 @@ int	print_hexa(va_list args, char flag, t_syntax *syntax)
 	while (precision_length--)
 		write(1, "0", 1);
 	write(1, hexa, hexa_length);
-	// while (syntax->precision_set && (hexa_length + precision_length) < syntax->precision)
-	// 	precision_length++;
-	// while (precision_length--)
-	// 	write(1, "0", 1);
-	free(hexa);
 	while (lol + hexa_length < syntax->width)
 	{
 		write(1, &padding, 1);
 		lol++;
 	}
+	free(hexa);
 	return hexa_length + lol;
 }
 
@@ -466,73 +469,18 @@ int ft_printf(const char *format, ...)
 	va_end(args);
 	return (len);
 }
+
 /*
 int main(void)
 {
 	char *string = "salut yolo";
-	int	x = 214748364;
-	char c = 'x';
+	// int	x = 214748364;
+	// char c = 'x';
 	int z;
 
-	printf("C\n");
-	z = printf("char %c\n", c);
-	printf("retour : %d\n", z);
-	z = ft_printf("char %c\n", c);
-	printf("retour : %d\n", z);
-
-	printf("S\n");
-	z = printf("string %s\n", string);
-	printf("retour : %d\n", z);
-	z = ft_printf("string %s\n", string);
-	printf("retour : %d\n", z);
-
-	printf("D\n");
-	z = printf("int %d\n", x);
-	printf("retour : %d\n", z);
-	z = ft_printf("int %d\n", x);
-	printf("retour : %d\n", z);
-	printf("-----------------\n");
-	z = printf("int %.*d\n", 8, x);
-	printf("retour : %d\n", z);
-	z = ft_printf("int %.*d\n", 8, x);
-	printf("retour : %d\n", z);
-	printf("-----------------\n");
-	z = printf("int %8d\n", x);
-	printf("retour : %d\n", z);
-	z = ft_printf("int %8d\n", x);
-	printf("retour : %d\n", z);
-	printf("-----------------\n");
-	z = printf("int %*d\n", 8, x);
-	printf("retour : %d\n", z);
-	z = ft_printf("int %*d\n", 8, x);
-	printf("retour : %d\n", z);
-	printf("-----------------\n");
-	z = printf("int %0.8d\n", x);
-	printf("retour : %d\n", z);
-	z = ft_printf("int %0.8d\n", x);
-	printf("retour : %d\n", z);
-	printf("-----------------\n");
-	z = printf("int %-.*d\n", 8, x);
-	printf("retour : %d\n", z);
-	z = ft_printf("int %-.*d\n", 8, x);
-	printf("retour : %d\n", z);
-	printf("-----------------\n");
-	z = printf("int %.*d\n", 8, x);
-	printf("retour : %d\n", z);
-	z = ft_printf("int %.*d\n", 8, x);
-	printf("retour : %d\n", z);
-
-	printf("P\n");
-	z = printf("pointer %p\n", &c);
-	printf("retour : %d\n", z);
-	z = ft_printf("pointer %p\n", &c);
-	printf("retour : %d\n", z);
-
-	printf("H\n");
-	z = printf("hexa %X\n", x);
-	printf("retour : %d\n", z);
-	z = ft_printf("hexa %X\n", x);
-	printf("retour : %d\n", z);
+	printf("TEST : \n");
+	z = printf("%s", string);
+	printf("\nretour : %d\n", z);
 	return (0);
 }
 */
