@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/14 18:44:22 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/14 18:47:53 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -328,7 +328,7 @@ int	print_hexa(va_list args, char flag, t_syntax *syntax)
 	write(1, hexa, hexa_length);
 	while (lol + hexa_length < syntax->width)
 	{
-		write(1, &padding, 1);
+		write(1, " ", 1);
 		lol++;
 	}
 	free(hexa);
