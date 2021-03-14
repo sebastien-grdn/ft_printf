@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/14 18:47:53 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/14 20:27:06 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,11 @@ int	print_string(va_list args, t_syntax *syntax)
 	if (syntax->zeros)
 		padding = '0';
 	substring = va_arg(args, char *);
+	if (!substring)
+	{
+		substring = malloc(sizeof(char) * 7);
+		substring = "(null)\0";
+	}
 	len = 0;
 	while (substring[len])
 		len++;
@@ -131,11 +136,18 @@ int	print_unsigned(va_list args, t_syntax *syntax)
 	char *int_string;
 	char padding;
 	int lol;
+	unsigned int input;
 
 	lol = 0;
-	int_string = ft_utoa((unsigned int)va_arg(args, int));
+	input = (unsigned int)va_arg(args, int);
+	int_string = ft_utoa(input);
 	len = ft_strlen(int_string);
 	padding = ' ';
+	if (syntax->precision_set && syntax->precision == 0 && input != 0)
+	{
+		syntax->precision_set = false;
+		syntax->zeros = false;
+	}
 	if (syntax->zeros && !syntax->precision_set)
 		padding = '0';
 	lol += padding_sign_precision(syntax, false, &len, padding);
@@ -145,7 +157,7 @@ int	print_unsigned(va_list args, t_syntax *syntax)
 		len = 0;
 	while (len < syntax->width--)
 	{
-		write(1, &padding, 1);
+		write(1, " ", 1);
 		lol++;
 	}
 	free(int_string);
@@ -189,6 +201,11 @@ int	print_decimal(va_list args, t_syntax *syntax)
 		int_string = ft_itoa(input);
 	len = ft_strlen(int_string);
 	padding = ' ';
+	if (syntax->precision_set && syntax->precision == 0 && input != 0)
+	{
+		syntax->precision_set = false;
+		syntax->zeros = false;
+	}
 	if (syntax->zeros && !syntax->precision_set)
 		padding = '0';
 	if (negative && syntax->width)
