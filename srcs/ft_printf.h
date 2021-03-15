@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:28:17 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 11:36:43 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:28:43 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int	print_pointer(va_list args, t_syntax *syntax);
 int	print_unsigned(va_list args, t_syntax *syntax);
 int padding_sign_precision(t_syntax *syntax, bool negative, int *len, char padding);
 int	print_decimal(va_list args, t_syntax *syntax);
-
+bool	extract_syntax(const char *format, int *i, t_syntax *syntax, va_list args);
 #endif

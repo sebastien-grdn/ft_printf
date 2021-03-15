@@ -6,7 +6,7 @@
 #    By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/02/03 21:28:31 by sg9031            #+#    #+#              #
-#    Updated: 2021/03/15 11:37:13 by sg9031           ###   ########.fr        #
+#    Updated: 2021/03/15 15:10:50 by sg9031           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ LIBFT_OBJS	= ${addprefix ${LIB_DIR}/, ${LIBFT_SRCS:.c=.o}}
 PRINTF_DIR	= srcs
 PRINTF_SRCS	= ft_printf.c ft_char_utils.c ft_string_utils.c ft_modulo_utils.c \
 			  ft_hexa_utils.c ft_pointer_utils.c ft_unsigned_utils.c ft_printf_utils.c \
-			  ft_decimal_utils.c
+			  ft_decimal_utils.c ft_syntax_utils.c
 PRINTF_OBJS = ${addprefix ${PRINTF_DIR}/, ${PRINTF_SRCS:.c=.o}}
 
 CC			= gcc

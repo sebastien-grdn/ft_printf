@@ -6,16 +6,16 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:19:38 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 11:19:45 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/15 16:09:15 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int print_modulo(t_syntax *syntax)
+int	print_modulo(t_syntax *syntax)
 {
-	int i;
-	char padding;
+	int		i;
+	char	padding;
 
 	padding = ' ';
 	if (syntax->zeros)

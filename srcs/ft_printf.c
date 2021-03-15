@@ -6,13 +6,13 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 11:42:37 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:10:26 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_arg(const char *format, int *i, va_list args, t_syntax *syntax)
+int		print_arg(const char *format, int *i, va_list args, t_syntax *syntax)
 {
 	int len;
 
@@ -35,72 +35,12 @@ int	print_arg(const char *format, int *i, va_list args, t_syntax *syntax)
 	return (len);
 }
 
-bool initialize_syntax(t_syntax *syntax)
+int		ft_printf(const char *format, ...)
 {
-	syntax->justify_left = false;
-	syntax->zeros = false;
-	syntax->width = 0;
-	syntax->precision = 0;
-	syntax->precision_set = false;
-	return (true);
-}
-
-bool	extract_syntax(const char *format, int *i, t_syntax *syntax, va_list args)
-{
-	initialize_syntax(syntax);
-	// FLAGS
-	while (ft_strchr(FLAGS, format[*i]))
-	{
-		if (format[*i] == '0')
-			syntax->zeros = true;
-		else if (format[*i] == '-')
-			syntax->justify_left = true;
-		*i += 1;
-	}
-	// WIDTH
-	if (format[*i] == '*')
-	{
-		syntax->width = va_arg(args, int);
-		*i += 1;
-	}
-	while (ft_isdigit(format[*i]))
-	{
-		syntax->width = syntax->width * 10 + (format[*i] - 48);
-		*i += 1;
-	}
-	// PRECISION
-	if (format[*i] == '.')
-	{
-		syntax->precision_set = true;
-		*i += 1;
-		while (ft_isdigit(format[*i]))
-		{
-			syntax->precision = syntax->precision * 10 + (format[*i] - 48);
-			*i += 1;
-		}
-	}
-	if (format[*i] == '*')
-	{
-		syntax->precision = va_arg(args, int);
-		*i += 1;
-	}
-	if (syntax->width < 0)
-	{
-		syntax->width = -syntax->width;
-		if (!syntax->justify_left)
-			syntax->justify_left = !syntax->justify_left;
-	}
-	if (syntax->precision < 0)
-		syntax->precision_set = false;
-	return (true);
-}
-
-int ft_printf(const char *format, ...)
-{
-	int	i;
-	int len;
-	va_list args;
-	t_syntax syntax;
+	int			i;
+	int			len;
+	va_list		args;
+	t_syntax	syntax;
 
 	va_start(args, format);
 	i = 0;
@@ -122,18 +62,3 @@ int ft_printf(const char *format, ...)
 	va_end(args);
 	return (len);
 }
-
-/*
-int main(void)
-{
-	char *string = "salut yolo";
-	// int	x = 214748364;
-	// char c = 'x';
-	int z;
-
-	printf("TEST : \n");
-	z = printf("%s", string);
-	printf("\nretour : %d\n", z);
-	return (0);
-}
-*/

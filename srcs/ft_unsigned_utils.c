@@ -6,13 +6,13 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:28:50 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 11:29:48 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/15 15:29:20 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char		*ft_utoa(unsigned int n)
+char	*ft_utoa(unsigned int n)
 {
 	int				size;
 	unsigned int	x;
@@ -36,26 +36,32 @@ char		*ft_utoa(unsigned int n)
 	return (str);
 }
 
-int	print_unsigned(va_list args, t_syntax *syntax)
+int		set_padding(int input, char *padding, t_syntax *syntax)
 {
-	int len;
-	char *int_string;
-	char padding;
-	int lol;
-	unsigned int input;
-
-	lol = 0;
-	input = (unsigned int)va_arg(args, int);
-	int_string = ft_utoa(input);
-	len = ft_strlen(int_string);
-	padding = ' ';
+	*padding = ' ';
 	if (syntax->precision_set && syntax->precision == 0 && input != 0)
 	{
 		syntax->precision_set = false;
 		syntax->zeros = false;
 	}
 	if (syntax->zeros && !syntax->precision_set)
-		padding = '0';
+		*padding = '0';
+	return (1);
+}
+
+int		print_unsigned(va_list args, t_syntax *syntax)
+{
+	int				len;
+	char			*int_string;
+	char			padding;
+	int				lol;
+	unsigned int	input;
+
+	lol = 0;
+	input = (unsigned int)va_arg(args, int);
+	int_string = ft_utoa(input);
+	len = ft_strlen(int_string);
+	set_padding(input, &padding, syntax);
 	lol += padding_sign_precision(syntax, false, &len, padding);
 	if (!(syntax->precision_set && syntax->precision == 0))
 		write(1, int_string, ft_strlen(int_string));
