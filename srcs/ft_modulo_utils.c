@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_char_utils.c                                    :+:      :+:    :+:   */
+/*   ft_modulo_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/14 22:16:34 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 11:15:34 by sg9031           ###   ########.fr       */
+/*   Created: 2021/03/15 11:19:38 by sg9031            #+#    #+#             */
+/*   Updated: 2021/03/15 11:19:45 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_char(va_list args, t_syntax *syntax)
+int print_modulo(t_syntax *syntax)
 {
-	unsigned char	c;
-	int				i;
-	char			padding;
+	int i;
+	char padding;
 
 	padding = ' ';
 	if (syntax->zeros)
@@ -29,8 +28,7 @@ int	print_char(va_list args, t_syntax *syntax)
 	}
 	while (syntax->width > i++ && !syntax->justify_left)
 		write(1, &padding, 1);
-	c = va_arg(args, int);
-	write(1, &c, 1);
+	write(1, "%", 1);
 	while (syntax->width >= i++)
 		write(1, " ", 1);
 	if (syntax->width)

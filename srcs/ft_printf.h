@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:28:17 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/14 23:52:17 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/15 11:36:43 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include <stdarg.h>
 # define SPECIFIERS "cspdiuxX%"
 # define FLAGS "-0"
-
-// À VIRER 
-# include <stdio.h>
 
 typedef enum {
 	false,
@@ -35,5 +32,12 @@ typedef struct s_syntax {
 } t_syntax;
 
 int	print_char(va_list args, t_syntax *syntax);
+int	print_string(va_list args, t_syntax *syntax);
+int print_modulo(t_syntax *syntax);
+int	print_hexa(va_list args, char flag, t_syntax *syntax);
+int	print_pointer(va_list args, t_syntax *syntax);
+int	print_unsigned(va_list args, t_syntax *syntax);
+int padding_sign_precision(t_syntax *syntax, bool negative, int *len, char padding);
+int	print_decimal(va_list args, t_syntax *syntax);
 
 #endif
