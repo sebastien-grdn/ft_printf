@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:16:36 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 12:37:23 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/15 14:49:37 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*extract_substring(va_list args, int *len)
 {
-	char *substring;
+	char	*substring;
 
 	substring = va_arg(args, char *);
 	if (!substring)
