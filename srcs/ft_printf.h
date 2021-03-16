@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:28:17 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/16 18:29:31 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 19:18:42 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct	s_syntax {
 	int		precision;
 }				t_syntax;
 
+int				ft_printf(const char *format, ...);
 int				print_char(va_list args, t_syntax *syntax);
 int				print_string(va_list args, t_syntax *syntax);
 int				print_modulo(t_syntax *syntax);
