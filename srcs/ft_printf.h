@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 21:28:17 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/16 19:18:42 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 23:17:20 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include <stdarg.h>
+# include <limits.h>
 # define SPECIFIERS "cspdiuxX%"
 # define FLAGS "-0"
 
