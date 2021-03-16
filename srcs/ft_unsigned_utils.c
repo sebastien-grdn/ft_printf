@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:28:50 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 15:29:20 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 18:38:03 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ int		print_unsigned(va_list args, t_syntax *syntax)
 	int				len;
 	char			*int_string;
 	char			padding;
-	int				lol;
+	int				extra_len;
 	unsigned int	input;
 
-	lol = 0;
+	extra_len = 0;
 	input = (unsigned int)va_arg(args, int);
 	int_string = ft_utoa(input);
 	len = ft_strlen(int_string);
 	set_padding(input, &padding, syntax);
-	lol += padding_sign_precision(syntax, false, &len, padding);
+	extra_len += padding_sign_precision(syntax, false, &len, padding);
 	if (!(syntax->precision_set && syntax->precision == 0))
 		write(1, int_string, ft_strlen(int_string));
 	else
@@ -70,8 +70,8 @@ int		print_unsigned(va_list args, t_syntax *syntax)
 	while (len < syntax->width--)
 	{
 		write(1, " ", 1);
-		lol++;
+		extra_len++;
 	}
 	free(int_string);
-	return (len + lol);
+	return (len + extra_len);
 }

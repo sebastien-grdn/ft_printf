@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:31:09 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/16 18:27:31 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 18:37:53 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ int	padding_sign_precision(
 )
 {
 	int precision_length;
-	int lol;
+	int extra_len;
 
-	lol = 0;
+	extra_len = 0;
 	precision_length = 0;
 	while (syntax->precision_set &&
 		(*len + precision_length) < syntax->precision)
@@ -29,7 +29,7 @@ int	padding_sign_precision(
 	while (!syntax->justify_left && *len + precision_length < syntax->width)
 	{
 		write(1, &padding, 1);
-		lol++;
+		extra_len++;
 		syntax->width--;
 	}
 	if (negative && padding == ' ')
@@ -39,5 +39,5 @@ int	padding_sign_precision(
 		write(1, "0", 1);
 		*len = *len + 1;
 	}
-	return (lol);
+	return (extra_len);
 }

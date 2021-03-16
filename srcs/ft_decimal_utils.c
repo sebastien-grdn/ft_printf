@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:36:25 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/16 18:27:27 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 18:37:29 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@ char	*handle_min_max(void)
 }
 
 char	*extract_decimal(va_list args, t_syntax *syntax,
-	int *lol, t_bool *negative)
+	int *extra_len, t_bool *negative)
 {
 	int		input;
 	char	*int_string;
 
 	int_string = NULL;
-	*lol = 0;
+	*extra_len = 0;
 	input = (int)va_arg(args, int);
 	*negative = false;
 	if (input < 0)
 	{
 		*negative = true;
 		input = -input;
-		*lol = *lol + 1;
+		*extra_len = *extra_len + 1;
 	}
 	if (input == INT_MIN || input - 1 == INT_MAX)
 		int_string = handle_min_max();
@@ -58,17 +58,17 @@ int		print_decimal(va_list args, t_syntax *syntax)
 	int		len;
 	char	*int_string;
 	char	padding;
-	int		lol;
+	int		extra_len;
 	t_bool	negative;
 
-	int_string = extract_decimal(args, syntax, &lol, &negative);
+	int_string = extract_decimal(args, syntax, &extra_len, &negative);
 	len = ft_strlen(int_string);
 	padding = ' ';
 	if (syntax->zeros && !syntax->precision_set)
 		padding = '0';
 	if (negative && syntax->width)
 		syntax->width--;
-	lol += padding_sign_precision(syntax, negative, &len, padding);
+	extra_len += padding_sign_precision(syntax, negative, &len, padding);
 	if (!(syntax->precision_set && syntax->precision == 0))
 		write(1, int_string, ft_strlen(int_string));
 	else
@@ -76,8 +76,8 @@ int		print_decimal(va_list args, t_syntax *syntax)
 	while (len < syntax->width--)
 	{
 		write(1, " ", 1);
-		lol++;
+		extra_len++;
 	}
 	free(int_string);
-	return (len + lol);
+	return (len + extra_len);
 }
