@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:21:45 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/16 16:51:21 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 16:55:06 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,27 @@ char	*extract_hexa_string(va_list args, t_syntax *syntax, char flag)
 int		print_complete_hexa(char *hexa_string,
 	t_syntax *syntax, char padding, int precision_length)
 {
-	int	lol;
+	int	padding_precision_len;
 	int	len;
 
 	len = ft_strlen(hexa_string);
-	lol = precision_length;
+	padding_precision_len = precision_length;
 	while (!syntax->justify_left && len + precision_length < syntax->width)
 	{
 		write(1, &padding, 1);
-		lol++;
+		padding_precision_len++;
 		syntax->width--;
 	}
 	while (precision_length--)
 		write(1, "0", 1);
 	write(1, hexa_string, len);
-	while (lol + len < syntax->width)
+	while (padding_precision_len + len < syntax->width)
 	{
 		write(1, " ", 1);
-		lol++;
+		padding_precision_len++;
 	}
 	free(hexa_string);
-	return (len + lol);
+	return (len + padding_precision_len);
 }
 
 int		print_hexa(va_list args, char flag, t_syntax *syntax)

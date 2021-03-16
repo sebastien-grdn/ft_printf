@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:36:25 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 14:36:59 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 18:27:27 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*handle_min_max(void)
 }
 
 char	*extract_decimal(va_list args, t_syntax *syntax,
-	int *lol, bool *negative)
+	int *lol, t_bool *negative)
 {
 	int		input;
 	char	*int_string;
@@ -59,7 +59,7 @@ int		print_decimal(va_list args, t_syntax *syntax)
 	char	*int_string;
 	char	padding;
 	int		lol;
-	bool	negative;
+	t_bool	negative;
 
 	int_string = extract_decimal(args, syntax, &lol, &negative);
 	len = ft_strlen(int_string);

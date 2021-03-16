@@ -6,13 +6,13 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:10:05 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 15:10:29 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 18:27:48 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool	initialize_syntax(t_syntax *syntax)
+t_bool	initialize_syntax(t_syntax *syntax)
 {
 	syntax->justify_left = false;
 	syntax->zeros = false;
@@ -67,7 +67,7 @@ int		extract_precision(const char *format, int *i,
 	return (1);
 }
 
-bool	extract_syntax(const char *format, int *i,
+t_bool	extract_syntax(const char *format, int *i,
 	t_syntax *syntax, va_list args)
 {
 	initialize_syntax(syntax);

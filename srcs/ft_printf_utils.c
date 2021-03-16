@@ -6,14 +6,14 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:31:09 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 11:44:47 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/16 18:27:31 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 int	padding_sign_precision(
-	t_syntax *syntax, bool negative, int *len, char padding
+	t_syntax *syntax, t_bool negative, int *len, char padding
 )
 {
 	int precision_length;
