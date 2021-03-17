@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/15 15:10:26 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/17 11:27:21 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,25 @@ int		ft_printf(const char *format, ...)
 	int			len;
 	va_list		args;
 	t_syntax	syntax;
+	int			return_value;
 
 	va_start(args, format);
 	i = 0;
 	len = 0;
 	while (format[i])
-	{
-		if (ft_isascii(format[i]) && format[i] != '%')
+		if (format[i] != '%')
 		{
 			write(1, &format[i++], 1);
 			len++;
 		}
-		else if (format[i] == '%')
+		else if (format[i++] == '%')
 		{
-			i++;
 			extract_syntax(format, &i, &syntax, args);
-			len += print_arg(format, &i, args, &syntax);
+			return_value = print_arg(format, &i, args, &syntax);
+			if (return_value == -1)
+				return (len);
+			len += return_value;
 		}
-	}
 	va_end(args);
 	return (len);
 }
