@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 15:43:39 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/17 11:27:21 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/17 12:15:56 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ int		print_arg(const char *format, int *i, va_list args, t_syntax *syntax)
 	int len;
 
 	len = 0;
-	if (format[*i] == 's')
+	if (!format[*i])
+		return (len);
+	else if (format[*i] == 's')
 		len = print_string(args, syntax);
 	else if (ft_strchr("di", format[*i]))
 		len = print_decimal(args, syntax);
@@ -41,7 +43,6 @@ int		ft_printf(const char *format, ...)
 	int			len;
 	va_list		args;
 	t_syntax	syntax;
-	int			return_value;
 
 	va_start(args, format);
 	i = 0;
@@ -55,10 +56,7 @@ int		ft_printf(const char *format, ...)
 		else if (format[i++] == '%')
 		{
 			extract_syntax(format, &i, &syntax, args);
-			return_value = print_arg(format, &i, args, &syntax);
-			if (return_value == -1)
-				return (len);
-			len += return_value;
+			len += print_arg(format, &i, args, &syntax);
 		}
 	va_end(args);
 	return (len);
