@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 11:21:45 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/16 16:55:06 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/18 14:03:26 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*extract_hexa_string(va_list args, t_syntax *syntax, char flag)
 	int			len;
 	char		*hexa_string;
 
-	x = va_arg(args, long int);
+	x = va_arg(args, unsigned int);
 	y = x;
 	len = 1;
 	while (y /= 16)

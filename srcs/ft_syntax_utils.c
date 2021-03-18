@@ -6,7 +6,7 @@
 /*   By: sg9031 <sg9031@gmail.com>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 15:10:05 by sg9031            #+#    #+#             */
-/*   Updated: 2021/03/16 18:27:48 by sg9031           ###   ########.fr       */
+/*   Updated: 2021/03/18 10:37:01 by sg9031           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ t_bool	extract_syntax(const char *format, int *i,
 	t_syntax *syntax, va_list args)
 {
 	initialize_syntax(syntax);
+	if (format[*i] == ' ')
+	{
+		while (format[*i] == ' ')
+			*i += 1;
+		write(1, " ", 1);
+	}
 	while (ft_strchr(FLAGS, format[*i]))
 	{
 		if (format[*i] == '0')
